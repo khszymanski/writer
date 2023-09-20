@@ -3,20 +3,22 @@
 	<!-- formularz dodawania posta -->
 	<div class="col-8 mb-5">
 		{{ form_start(form) }}
-		{{ form_widget(form) }}
+		{# {{ form_widget(form) }} #}
+		{# title #}
+		<div class="mb-3">
+			{{ form_row(form.title) }}
+		</div>
 
-		{# <!-- Tytul -->
+		{# description #}
 		<div class="mb-3">
-			<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Tytuł">
+			{{ form_row(form.description) }}
 		</div>
-		<!-- Opis -->
+
+		{# image #}
 		<div class="mb-3">
-			<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Opis"></textarea>
+			{{ form_row(form.imagePath) }}
 		</div>
-		<!-- Zdjjecie -->
-		<div class="mb-3">
-			<input class="form-control" type="file" id="formFile">
-		</div> #}
+
 		<button type="submit" class="btn btn-primary">Dodaj</button>
 
 		{{ form_end(form) }}
