@@ -27,6 +27,12 @@ class PostsController extends AbstractController
         'posts' => $posts
        ]);
     }
+    
+    #[Route('/posts/create', name:'app_posts_create')]
+    public function create(){
+
+        return $this->render('posts/create.html.twig');
+    }
 
     #[Route('/posts/{id}', name: 'app_posts_show', methods: ['GET'])]
     public function show($id): Response{
@@ -38,9 +44,4 @@ class PostsController extends AbstractController
         ]);
     }
 
-    #[Route('/posts/create', name:'app_posts_create')]
-    public function create(){
-
-        return $this->render('posts/create.html.twig');
-    }
 }
