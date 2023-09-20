@@ -2,21 +2,24 @@
 {% block body %}
 	<!-- formularz dodawania posta -->
 	<div class="col-8 mb-5">
-		<form>
-			<!-- Tytul -->
-			<div class="mb-3">
-				<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Tytuł">
-			</div>
-			<!-- Opis -->
-			<div class="mb-3">
-				<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Opis"></textarea>
-			</div>
-			<!-- Zdjjecie -->
-			<div class="mb-3">
-				<input class="form-control" type="file" id="formFile">
-			</div>
-			<button type="button" class="btn btn-primary">Dodaj</button>
-		</form>
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+
+		{# <!-- Tytul -->
+		<div class="mb-3">
+			<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Tytuł">
+		</div>
+		<!-- Opis -->
+		<div class="mb-3">
+			<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Opis"></textarea>
+		</div>
+		<!-- Zdjjecie -->
+		<div class="mb-3">
+			<input class="form-control" type="file" id="formFile">
+		</div> #}
+		<button type="submit" class="btn btn-primary">Dodaj</button>
+
+		{{ form_end(form) }}
 	</div>
 	<!-- /formularz dodawania posta -->
 {% endblock %}
