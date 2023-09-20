@@ -12,19 +12,35 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PostsController extends AbstractController
 {
-    private $em;
-    public function __construct(EntityManagerInterface $em){
-        $this->em = $em;
+    private $postRepository;
+
+    public function __construct(PostRepository $postRepository){
+        $this->postRepository = $postRepository;
     }
 
-    #[Route('/posts', name: 'app_posts')]
+    #[Route('/posts', name: 'app_posts_index', methods: ['GET'])]
     public function index(): Response
     {
-        $repository = $this->em->getRepository(Post::class);
-        $posts = $repository->findAll();
+        $posts = $this->postRepository->findAll();
 
-       return $this->render('posts/index.html.twig', array(
+       return $this->render('posts/index.html.twig', [
         'posts' => $posts
-       ));
+       ]);
+    }
+
+    #[Route('/posts/{id}', name: 'app_posts_show', methods: ['GET'])]
+    public function show($id): Response{
+
+        $post = $this->postRepository->find($id);
+
+        return $this->render('posts/show.html.twig', [
+            'post' => $post
+        ]);
+    }
+
+    #[Route('/posts/create', name:'app_posts_create')]
+    public function create(){
+
+        return $this->render('posts/create.html.twig');
     }
 }

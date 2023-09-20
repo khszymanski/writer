@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+{% block body %}
+	<!-- item -->
+	<div class="col-8 border-bottom p-3 mb-5">
+		<p class="h3">{{ post.title }}</p>
+		<p>
+			<small>Created by
+				<em>Hubert</em>
+				| 2023-09-14 @ 14:45</small>
+		</p>
+		<img src="{{ post.imagePath }}" class="img-fluid rounded-top w-50" alt="">
+		<p class="lead pt-2">
+			{{ post.description }}
+		</p>
+	</div>
+	<!-- /item -->
+{% endblock %}
