@@ -123,6 +123,13 @@ class PostsController extends AbstractController
         ]);
     }
 
+    #[Route('/posts/delete/{id}', name:'app_posts_delete', methods:['GET', 'DELETE'])]
+    public function delete($id): Response
+    {
+        
+    }
+
+
     #[Route('/posts/{id}', name: 'app_posts_show', methods: ['GET'])]
     public function show($id): Response
     {
