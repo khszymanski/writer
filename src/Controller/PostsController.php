@@ -45,6 +45,7 @@ class PostsController extends AbstractController
             $newPost = $form->getData();
 
             $imagePath = $form->get('imagePath')->getData();
+
             if ($imagePath) {
                 $newFileName = uniqid() . '.' . $imagePath->guessExtension();
 
@@ -73,10 +74,48 @@ class PostsController extends AbstractController
     }
 
     #[Route('/posts/edit/{id}', name: 'app_posts_edit', methods: ['POST', 'GET'])]
-    public function edit($id): Response
+    public function edit($id, Request $request): Response
     {
         $post = $this->postRepository->find($id);
         $form = $this->createForm(PostFormType::class, $post);
+
+        $form->handleRequest($request);
+        $imagePath = $form->get('imagePath')->getData();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($imagePath) {
+                // new image -> upload new photo
+                if ($post->getImagePath() !== null) {
+
+                    // $this->getParameter('kernel.project_dir') . $post->getImagePath()
+
+                    $newFileName = uniqid() . '.' . $imagePath->guessExtension();
+
+                    try {
+                        $imagePath->move(
+                            $this->getParameter('kernel.project_dir') . '/public/uploads',
+                            $newFileName
+                        );
+                    } catch (FileException $e) {
+                        return new Response($e->getMessage());
+                    }
+
+                    $post->setImagePath('/uploads/' . $newFileName);
+
+                    $this->em->flush();
+
+                    return $this->redirectToRoute('app_posts_index');
+                }
+            } else {
+                // no new image
+                $post->setTitle($form->get('title')->getData());
+                $post->setDescription($form->get('description')->getData());
+
+                $this->em->flush();
+
+                return $this->redirectToRoute('app_posts_index');
+            }
+        }
 
         return $this->render('posts/edit.html.twig', [
             'post' => $post,
