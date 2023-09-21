@@ -2,31 +2,37 @@
 {% block body %}
 	<!-- formularz dodawania posta -->
 	<div class="col-8 mb-5">
-		<form>
-			<!-- Tytul -->
-			<div class="mb-3">
-				<input type="email" class="form-control" id="exampleFormControlInput1" value="Zółwiki">
-			</div>
-			<!-- Opis -->
-			<!-- Opis -->
-			<div class="mb-3">
-				<textarea class="form-control" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam euismod, magna vel mollis molestie, libero ante tincidunt tortor, ut convallis lacus dolor sed mi. Sed eu arcu felis. Nam metus tortor, luctus sit amet quam sit amet, luctus lobortis odio. Sed non facilisis massa. Pellentesque dignissim dui tincidunt sem aliquet porta. Vestibulum hendrerit dapibus congue. Aliquam erat volutpat. Fusce porta erat elit, eu porttitor dolor hendrerit non. Sed vitae sodales neque. Nunc a quam pretium, rhoncus eros non, sagittis mi. Nulla gravida, odio ut sagittis vehicula, libero lectus scelerisque quam, ac vestibulum ex lacus vitae metus. Nam aliquam nisl ultricies arcu placerat lobortis. Nullam finibus metus quis mattis eleifend. Aliquam erat volutpat.
-				</textarea>
-			</div>
+		{{ form_start(form) }}
+		<!-- Tytul -->
+		<div
+			class="mb-3">
+			{# <input type="email" class="form-control" id="exampleFormControlInput1" value="Zółwiki"> #}
+			{{ form_row(form.title) }}
+		</div>
+		<!-- Opis -->
+		<!-- Opis -->
+		<div
+			class="mb-3">
+			{# <textarea class="form-control" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam euismod, magna vel mollis molestie, libero ante tincidunt tortor, ut convallis lacus dolor sed mi. Sed eu arcu felis. Nam metus tortor, luctus sit amet quam sit amet, luctus lobortis odio. Sed non facilisis massa. Pellentesque dignissim dui tincidunt sem aliquet porta. Vestibulum hendrerit dapibus congue. Aliquam erat volutpat. Fusce porta erat elit, eu porttitor dolor hendrerit non. Sed vitae sodales neque. Nunc a quam pretium, rhoncus eros non, sagittis mi. Nulla gravida, odio ut sagittis vehicula, libero lectus scelerisque quam, ac vestibulum ex lacus vitae metus. Nam aliquam nisl ultricies arcu placerat lobortis. Nullam finibus metus quis mattis eleifend. Aliquam erat volutpat.
+							</textarea> #}
+			{{ form_row(form.description) }}
+		</div>
 
-			<!-- Zdjjecie -->
-			<div class="mb-3">
-				<input class="form-control" type="file" id="formFile">
-			</div>
-			<img src="https://images.pexels.com/photos/18113204/pexels-photo-18113204/free-photo-of-natura-woda-rock-fotografia-zwierzecia.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="img-fluid rounded-top mb-3" alt="">
-			<br>
-			<a href="my_posts.php">
-				<button type="button" class="btn btn-primary">Zapisz</button>
-			</a>
-			<a href="home.php">
-				<button type="button" class="btn btn-danger">Usuń</button>
-			</a>
-		</form>
+		<!-- Zdjjecie -->
+		<div
+			class="mb-3">
+			{# <input class="form-control" type="file" id="formFile"> #}
+			{{ form_row(form.imagePath) }}
+		</div>
+		<img src="{{ post.imagePath }}" class="img-fluid rounded-top mb-3 w-50" alt="">
+		<br>
+		<a href="my_posts.php">
+			<button type="submit" class="btn btn-primary">Zapisz</button>
+		</a>
+		<a href="home.php">
+			<button type="button" class="btn btn-danger">Usuń</button>
+		</a>
+		{{ form_end(form) }}
 	</div>
 	<!-- /formularz dodawania posta -->
 {% endblock %}

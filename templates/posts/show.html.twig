@@ -12,6 +12,12 @@
 		<p class="lead pt-2">
 			{{ post.description }}
 		</p>
+		<a href="/posts/edit/{{ post.id }}">
+			<button type="button" class="btn btn-secondary">Edytuj</button>
+		</a>
+		<a href="/posts/delete">
+			<button type="button" class="btn btn-danger">Usuń</button>
+		</a>
 	</div>
 	<!-- /item -->
 {% endblock %}

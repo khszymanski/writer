@@ -30,11 +30,19 @@ class PostFormType extends AbstractType
                 'label' => false
             ])
             ->add('imagePath', FileType::class, [
+                'required' => false,
+                'mapped' => false,
                 'attr' => [
                     'class' => 'form-control'
                 ],
                 'label' => false
             ])
+            // ->add('imagePath', FileType::class, [
+            //     'attr' => [
+            //         'class' => 'form-control'
+            //     ],
+            //     'label' => false
+            // ])
         ;
     }
 
