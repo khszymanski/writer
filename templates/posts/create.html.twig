@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+{% block body %}
+	<!-- formularz dodawania posta -->
+	<div class="col-8 mb-5">
+		{{ form_start(form) }}
+		{# {{ form_widget(form) }} #}
+		{# title #}
+		<div class="mb-3">
+			{{ form_row(form.title) }}
+		</div>
+
+		{# description #}
+		<div class="mb-3">
+			{{ form_row(form.description) }}
+		</div>
+
+		{# image #}
+		<div class="mb-3">
+			{{ form_row(form.imagePath) }}
+		</div>
+
+		<button type="submit" class="btn btn-primary">Dodaj</button>
+
+		{{ form_end(form) }}
+	</div>
+	<!-- /formularz dodawania posta -->
+{% endblock %}

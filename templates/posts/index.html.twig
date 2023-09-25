@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+{% block body %}
+	<!-- items -->
+	{% for post in posts %}
+		<div class="col-8 border-bottom p-3 mb-5">
+			<p class="h3">{{ post.title }}</p>
+			<p>
+				<small>Created by
+					<em>Hubert</em>
+					| 2023-09-14 @ 14:45</small>
+			</p>
+			{# <img src="{{ post.imagePath }}" class="img-fluid w-50 rounded-top" alt=""> #}
+			<img src="{{ post.imagePath }}" class="img-fluid w-50 rounded-top" alt="">
+			<p class="lead pt-2">
+				{{ post.description }}
+			</p>
+			<a href="/posts/{{ post.id }}">
+				<button type="button" class="btn btn-dark">Czytaj więcej</button>
+			</a>
+		</div>
+	{% endfor %}
+    <!-- /items !-->
+{% endblock %}
