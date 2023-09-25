@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-light">
         <div class="container">
             <a class="navbar-brand" href="/posts">Writer!</a>
-            {{ app.user.email }}
+            {{ app.user ? app.user.email }}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -10,14 +10,16 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/posts">Home</a>
                     </li>
+                    {% if (app.user) %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/posts/create">Dodaj</a>
                     </li>
+                    {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/login">Zaloguj</a>
+                        <a class="nav-link active" aria-current="page" href="{{ app.user ? '/posts/user/' : '/login' }}">{{ app.user ? 'Moje posty' : 'Zaloguj' }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/register">Zarejestruj</a>
+                        <a class="nav-link active" aria-current="page" href="{{ app.user ? '/logout' : '/register' }}">{{ app.user ? 'Wyloguj' : 'Zarejestruj' }}</a>
                     </li>
                 </ul>
             </div>
