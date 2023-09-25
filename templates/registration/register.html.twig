@@ -13,15 +13,18 @@
 		<div class="mb-3">
 			{{ form_row(registrationForm.email) }}
 		</div>
-		{# <div class="mb-3">
-					<input type="text" class="form-control" id="username" name="username" placeholder="Imię / nazwisko / nick">
-				</div> #}
+		<div class="mb-3">
+			{{ form_row(registrationForm.name) }}
+		</div>
+		<div class="mb-3">
+			{{ form_row(registrationForm.surname) }}
+		</div>
+		<div class="mb-3">
+			{{ form_row(registrationForm.nick) }}
+		</div>
 		<div class="mb-3">
 			{{ form_row(registrationForm.plainPassword) }}
 		</div>
-		{# <div class="mb-3">
-					<input type="password" class="form-control" id="password" name="password" placeholder="Powtórz ***** *** :)">
-				</div> #}
 		<div class="mb-3">
 			{{ form_row(registrationForm.agreeTerms) }}
 		</div>

@@ -55,6 +55,27 @@ class RegistrationFormType extends AbstractType
                 ],
                 'label' => false
             ])
+            ->add('name', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Imię'
+                ],
+                'label' => false
+            ])
+            ->add('surname', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Nazwisko'
+                ],
+                'label' => false
+            ])
+            ->add('nick', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Nick'
+                ],
+                'label' => false
+            ])
         ;
     }
 
