@@ -126,7 +126,12 @@ class PostsController extends AbstractController
     #[Route('/posts/delete/{id}', name:'app_posts_delete', methods:['GET', 'DELETE'])]
     public function delete($id): Response
     {
-        
+        $post = $this->postRepository->find($id);
+        $this->em->remove($post);
+
+        $this->em->flush();
+
+        return $this->redirectToRoute('app_posts_index');
     }
 
 
