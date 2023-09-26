@@ -47,6 +47,9 @@ class PostsController extends AbstractController
 
             $newPost->setCreatedAt(DateTimeImmutable::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s')));
 
+            $user = $this->getUser();
+            $newPost->setUser($user);
+
             $imagePath = $form->get('imagePath')->getData();
 
             if ($imagePath) {
