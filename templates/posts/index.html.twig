@@ -6,8 +6,8 @@
 			<p class="h3">{{ post.title }}</p>
 			<p>
 				<small>Created by
-					<em>Hubert</em>
-					| 2023-09-14 @ 14:45</small>
+					<em>{{ post.user.nick }}</em>
+					| {{ post.createdAt | date('Y-m-d @ H:i') }}</small>
 			</p>
 			{# <img src="{{ post.imagePath }}" class="img-fluid w-50 rounded-top" alt=""> #}
 			<img src="{{ post.imagePath }}" class="img-fluid w-50 rounded-top" alt="">
