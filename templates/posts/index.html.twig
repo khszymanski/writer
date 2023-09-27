@@ -6,7 +6,12 @@
 			<p class="h3">{{ post.title }}</p>
 			<p>
 				<small>Created by
-					<em>{{ post.user.nick }}</em>
+					{% if app.user %}
+						<em><a href="/profile/{{ post.user.id }}">{{ post.user.nick }}</a></em>
+					{% else %}
+						<em>{{ post.user.nick }}</em>
+					{% endif %}
+					
 					|
 					{{ post.createdAt | date('Y-m-d @ H:i') }}</small>
 			</p>

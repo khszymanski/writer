@@ -3,37 +3,43 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use DateTimeImmutable;
 use App\Form\PostFormType;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use DateTimeImmutable;
 
 class PostsController extends AbstractController
 {
     private $postRepository;
+    private $userRepository;
+    private $security;
     private $em;
 
-    public function __construct(PostRepository $postRepository, EntityManagerInterface $em)
+    public function __construct(PostRepository $postRepository, UserRepository $userRepository, Security $security, EntityManagerInterface $em)
     {
         $this->postRepository = $postRepository;
+        $this->userRepository = $userRepository;
+        $this->security = $security;
         $this->em = $em;
     }
 
-    #[Route('/', name:'app_posts', methods:['GET'])]
-        public function home(): Response
-        {
-            $posts = $this->postRepository->findAll();
+    #[Route('/', name: 'app_posts', methods: ['GET'])]
+    public function home(): Response
+    {
+        $posts = $this->postRepository->findAll();
 
-            return $this->render('posts/index.html.twig', [
-                'posts' => $posts
-            ]);
-        }
+        return $this->render('posts/index.html.twig', [
+            'posts' => $posts
+        ]);
+    }
 
     #[Route('/posts', name: 'app_posts_index', methods: ['GET'])]
     public function index(): Response
@@ -93,6 +99,15 @@ class PostsController extends AbstractController
     public function edit($id, Request $request): Response
     {
         $post = $this->postRepository->find($id);
+
+        $user = $this->security->getUser();
+        $isOwner = $user && $user === $post->getUser();
+
+        if (!$isOwner) {
+            return $this->redirectToRoute('app_posts_index');
+            exit();
+        }
+
         $form = $this->createForm(PostFormType::class, $post);
 
         $form->handleRequest($request);
@@ -139,10 +154,19 @@ class PostsController extends AbstractController
         ]);
     }
 
-    #[Route('/posts/delete/{id}', name:'app_posts_delete', methods:['GET', 'DELETE'])]
+    #[Route('/posts/delete/{id}', name: 'app_posts_delete', methods: ['GET', 'DELETE'])]
     public function delete($id): Response
     {
         $post = $this->postRepository->find($id);
+
+        $user = $this->security->getUser();
+        $isOwner = $user && $user === $post->getUser();
+
+        if (!$isOwner) {
+            return $this->redirectToRoute('app_posts_index');
+            exit();
+        }
+
         $this->em->remove($post);
 
         $this->em->flush();
@@ -157,8 +181,23 @@ class PostsController extends AbstractController
 
         $post = $this->postRepository->find($id);
 
+        $user = $this->security->getUser();
+        $isOwner = $user && $user === $post->getUser();
+
         return $this->render('posts/show.html.twig', [
-            'post' => $post
+            'post' => $post,
+            'isOwner' => $isOwner
+        ]);
+    }
+
+    #[Route('/profile/{id}', name: 'app_profile_index', methods: ['GET'])]
+    public function profileIndex($id): Response
+    {
+        $user = $this->userRepository->find($id);
+        $posts = $user->getPosts();
+
+        return $this->render('posts/index.html.twig', [
+            'posts' => $posts,
         ]);
     }
 }

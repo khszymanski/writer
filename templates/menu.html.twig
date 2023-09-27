@@ -16,7 +16,7 @@
                     </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ app.user ? '/posts/user/' : '/login' }}">{{ app.user ? 'Moje posty' : 'Zaloguj' }}</a>
+                        <a class="nav-link active" aria-current="page" href="{{ app.user ? '/profile/'~app.user.id : '/login' }}">{{ app.user ? 'Moje posty' : 'Zaloguj' }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ app.user ? '/logout' : '/register' }}">{{ app.user ? 'Wyloguj' : 'Zarejestruj' }}</a>
