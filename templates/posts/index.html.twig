@@ -7,17 +7,20 @@
 			<p>
 				<small>Created by
 					<em>{{ post.user.nick }}</em>
-					| {{ post.createdAt | date('Y-m-d @ H:i') }}</small>
+					|
+					{{ post.createdAt | date('Y-m-d @ H:i') }}</small>
 			</p>
 			{# <img src="{{ post.imagePath }}" class="img-fluid w-50 rounded-top" alt=""> #}
 			<img src="{{ post.imagePath }}" class="img-fluid w-50 rounded-top" alt="">
 			<p class="lead pt-2">
 				{{ post.description }}
 			</p>
-			<a href="/posts/{{ post.id }}">
-				<button type="button" class="btn btn-dark">Czytaj więcej</button>
-			</a>
+			{% if app.user %}
+				<a href="/posts/{{ post.id }}">
+					<button type="button" class="btn btn-dark">Czytaj więcej</button>
+				</a>
+			{% endif %}
 		</div>
 	{% endfor %}
-    <!-- /items !-->
+	<!-- /items !-->
 {% endblock %}

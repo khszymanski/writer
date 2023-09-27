@@ -25,6 +25,16 @@ class PostsController extends AbstractController
         $this->em = $em;
     }
 
+    #[Route('/', name:'app_posts', methods:['GET'])]
+        public function home(): Response
+        {
+            $posts = $this->postRepository->findAll();
+
+            return $this->render('posts/index.html.twig', [
+                'posts' => $posts
+            ]);
+        }
+
     #[Route('/posts', name: 'app_posts_index', methods: ['GET'])]
     public function index(): Response
     {
