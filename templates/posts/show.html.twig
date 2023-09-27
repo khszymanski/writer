@@ -5,8 +5,16 @@
 		<p class="h3">{{ post.title }}</p>
 		<p>
 			<small>Created by
-				<em>Hubert</em>
-				| 2023-09-14 @ 14:45</small>
+				{% if app.user %}
+					<em>
+						<a href="/profile/{{ post.user.id }}">{{ post.user.nick }}</a>
+					</em>
+				{% else %}
+					<em>{{ post.user.nick }}</em>
+				{% endif %}
+
+				|
+				{{ post.createdAt | date('Y-m-d @ H:i') }}</small>
 		</p>
 		<img src="{{ post.imagePath }}" class="img-fluid rounded-top w-50" alt="">
 		<p class="lead pt-2">
