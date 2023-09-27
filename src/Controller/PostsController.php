@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Form\PostFormType;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,11 +18,13 @@ use DateTimeImmutable;
 class PostsController extends AbstractController
 {
     private $postRepository;
+    private $userRepository;
     private $em;
 
-    public function __construct(PostRepository $postRepository, EntityManagerInterface $em)
+    public function __construct(PostRepository $postRepository, UserRepository $userRepository, EntityManagerInterface $em)
     {
         $this->postRepository = $postRepository;
+        $this->userRepository = $userRepository;
         $this->em = $em;
     }
 
@@ -159,6 +162,17 @@ class PostsController extends AbstractController
 
         return $this->render('posts/show.html.twig', [
             'post' => $post
+        ]);
+    }
+
+    #[Route('/profile/{id}', name:'app_profile_index', methods:['GET'])]
+    public function profileIndex($id): Response
+    {
+        $user = $this->userRepository->find($id);
+        $posts = $user->getPosts();
+
+        return $this->render('posts/index.html.twig', [
+            'posts' => $posts
         ]);
     }
 }
